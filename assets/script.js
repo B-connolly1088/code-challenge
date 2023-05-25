@@ -21,13 +21,16 @@ var questions = [
     },
 ]
 
-var currentQ = 0
+var currentQ = 0;
+
 
 function buttonClicked(event) {
     event.preventDefault();
     startPage.classList.add("hide");
     qPage.classList.remove("hide");
+    countdown();
     questionSelect();
+    
 }
 
 function questionSelect() {
@@ -51,13 +54,40 @@ function answerSelect(event) {
         if (currentQ < questions.length) {
             questionSelect();
         } else {
-            console.log("You're Done!");
+            endQuiz();
     }
     }   
 }
 
+//answer verification
+
+var timeLimit = 60;
+var currentTime = timeLimit;
+// var timerInterval;
+
+function countdown() {
+var timeInterval = setInterval( function () {
+    timeLimit--;
+    document.getElementById("timer").textContent = timeLimit;
+    if (timeLimit >= 0) {
+        timeLimit--;
+    } else (timeLimit <= 0) {
+        clearInterval(timeInterval);
+    }
+}, 1000)
+    
+}
+
+
+
+function endQuiz() {
+    qPage.classList.add("hide");
+    totalScore.classList.remove("hide")
+}
+
 
 button.addEventListener("click", buttonClicked);
+var timerEl = document.getElementById("start-button")
 
 
 
